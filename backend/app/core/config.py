@@ -10,7 +10,7 @@ class Settings(BaseSettings):
     )
 
     # Application
-    APP_NAME: str = "Sample FastAPI"
+    APP_NAME: str = "all-right-home"
     APP_VERSION: str = "0.1.0"
     APP_ENV: str = "local"
     APP_LOG_LEVEL: str = "DEBUG"

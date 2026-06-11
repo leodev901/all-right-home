@@ -40,4 +40,4 @@ errorlog = "-"   # 표준 에러로 로그 출력
 graceful_timeout = 30
 
 # 7. 프로세스 이름 설정 (K8s에서 식별 용이)
-proc_name = "Sample FastAPI"
+proc_name = "all-right-home"

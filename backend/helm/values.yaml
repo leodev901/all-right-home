@@ -2,7 +2,7 @@
 # Deployment Configuration
 # =======================================
 image:
-  repository: ghcr.io/jinsoooooooo/template-fastapi
+  repository: ghcr.io/jinsoooooooo/all-right-home
   tag: "latest"
   pullPolicy: Always
 containers:
@@ -46,9 +46,9 @@ hpa:
 env:
   # 애플리케이션 사양 한 곳으로 통합
   app:
-    name: "Sample FastAPI"
+    name: "all-right-home"
     env: "prod"
-    logLevel: "info"
+    logLevel: "debug"
     host: "0.0.0.0"
     port: 8080
 
