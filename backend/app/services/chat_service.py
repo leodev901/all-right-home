@@ -109,8 +109,8 @@ class ChatService:
             if mode == "messages":
                 token, metadata = chunk
 
-                # AiMeesage, ToolMessage 만 진행
-                if not ( isinstance(token,AIMessage) or isinstance(token,ToolMessage)):
+                # AiMeesage만 진행
+                if not ( isinstance(token,AIMessage)):
                     continue
                 
                 content = getattr(token, "content", None)
@@ -130,8 +130,27 @@ class ChatService:
                 if text:
                     yield f"data: {json.dumps({'type': 'token', 'data': text}, ensure_ascii=False)}\n\n"
                     
+
             elif mode == "updates":
                 logger.debug("mode: updates")
                 logger.debug(chunk)
+
+                # 1. chunk가 dict이므로 get()으로 안전하게 노드 데이터를 가져옵니다.
+                # (보통 도구 실행 노드명은 프로젝트 설계에 따라 "tools" 또는 "tool"입니다.)
+                tool_node = chunk.get("tools") or chunk.get("tool")
+                
+                if tool_node:
+                    # 2. 노드 데이터에서 messages 리스트를 추출합니다.
+                    messages = tool_node.get("messages") if isinstance(tool_node, dict) else getattr(tool_node, "messages", None)
+                    
+                    if messages:
+                        # 3. 마지막 ToolMessage 객체를 꺼내어 처리합니다.
+                        last_msg = messages[-1]
+                        content = getattr(last_msg, "content", None)
+                        tool_name = getattr(last_msg, "name", None)
+                        
+                        if content:
+                            yield f"data: {json.dumps({'type': 'tool', 'data': content, 'name': tool_name}, ensure_ascii=False)}\n\n"
+                
 
         yield "data: [DONE]\n\n"

@@ -1,26 +1,142 @@
 @import "tailwindcss";
 
+
+/* ============================================================
+   디자인 토큰 (CSS 변수)
+   - 밝고 깔끔한 화이트 베이스
+   - 포인트: 오렌지 (#F97316) 최소 사용
+   ============================================================ */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --color-bg: #F9FAFB;
+  --color-surface: #FFFFFF;
+  --color-border: #E5E7EB;
+  --color-border-light: #F3F4F6;
+
+  --color-text-primary: #111827;
+  --color-text-secondary: #374151;
+  --color-text-muted: #6B7280;
+  --color-text-placeholder: #9CA3AF;
+
+  --color-accent: #F97316;
+  --color-accent-hover: #EA6C0A;
+  --color-accent-light: #FFF7ED;
+  --color-accent-muted: #FED7AA;
+
+  --color-success: #10B981;
+  --color-warning: #F59E0B;
+  --color-error: #EF4444;
+  --color-info: #3B82F6;
+
+  --gnb-height: 60px;
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.07), 0 2px 4px -2px rgb(0 0 0 / 0.05);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.08), 0 4px 6px -4px rgb(0 0 0 / 0.05);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+/* ============================================================
+   기본 리셋 & 바디
+   ============================================================ */
+*, *::before, *::after {
+  box-sizing: border-box;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--color-bg);
+  color: var(--color-text-primary);
+  font-family: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Apple SD Gothic Neo', sans-serif;
+  font-size: 14px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ============================================================
+   스크롤바 스타일
+   ============================================================ */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #D1D5DB;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #9CA3AF;
+}
+
+/* ============================================================
+   공통 애니메이션
+   ============================================================ */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.3; }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.2s ease-out;
+}
+
+.animate-slide-down {
+  animation: slideDown 0.18s ease-out;
+}
+
+/* ============================================================
+   채팅 스트리밍 커서
+   ============================================================ */
+.streaming-cursor::after {
+  content: '▋';
+  display: inline-block;
+  animation: pulse-dot 0.8s infinite;
+  color: var(--color-accent);
+  margin-left: 2px;
+}
+
+/* ============================================================
+   공통 유틸리티
+   ============================================================ */
+.card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 10px;
+  box-shadow: var(--shadow-sm);
+}
+
+.btn-primary {
+  background-color: var(--color-accent);
+  color: #fff;
+  border-radius: 8px;
+  font-weight: 600;
+  transition: background-color 0.15s ease;
+}
+.btn-primary:hover {
+  background-color: var(--color-accent-hover);
+}
+
+.coming-soon-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 8px;
+  background: var(--color-accent-light);
+  color: var(--color-accent);
+  border-radius: 99px;
+  font-size: 11px;
+  font-weight: 600;
 }

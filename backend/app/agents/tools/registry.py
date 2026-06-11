@@ -6,8 +6,8 @@ from app.agents.tools.common.naver_search_tools import TOOLS as NAVER_TOOLS
 
 
 COMMON_TOOLS = [
-    *WEATHER_TOOLS,
-    *NEWS_TOOLS,
+    # *WEATHER_TOOLS,
+    # *NEWS_TOOLS,
     *NAVER_TOOLS,
 ]
 
